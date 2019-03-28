@@ -57,8 +57,9 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   
   //Hashing Implementation Testing Part B
   while(queryFile.good())
+  {
 	  getline(queryFile, line_input);
-      if(hash_table.Contains(line_input.c_str())) 
+      if(hash_table.Contains(line_input)) 
 	  {
 		 // The "number of collisions + 1" determines the number of probes used
 		 //You must find a new position in the hashtable, so you collide until you find a position
@@ -71,6 +72,7 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
         cout << line_input << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
         hash_table.resetNumOfCollisions();
       }
+  }
   
   
 wordsFile.clear();
@@ -112,7 +114,7 @@ main(int argc, char **argv)
   } 
   else 
   {
-    cout << "Uknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
+    cout << "Unknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
   }
   return 0;
 }
