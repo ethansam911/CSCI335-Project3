@@ -23,7 +23,7 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   //A pointer to the c-string representation of the string object's value.
   // std::string should work fine
   ifstream wordsFile;
-  wordsFile.open(words_filename.c_str());
+  wordsFile.open(words_filename);
   
   //Check if able to open
   if(wordsFile.fail())
@@ -61,25 +61,24 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
 	  getline(queryFile, line_input);
       if(hash_table.Contains(line_input)) 
 	  {
+		  
 		 // The "number of collisions + 1" determines the number of probes used
 		 //You must find a new position in the hashtable, so you collide until you find a position
-        cout << line_input << "Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << line_input << " Found " << hash_table.getNumOfCollisions()+1 << endl;
 		//Reset the collisions because we want to find the number of probes only
         hash_table.resetNumOfCollisions();
       } 
 	  else 
 	  {
-        cout << line_input << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << line_input << " Not Found " << hash_table.getNumOfCollisions() + 1 << endl;
         hash_table.resetNumOfCollisions();
       }
   }
   
   
-wordsFile.clear();
+//Close both files
 wordsFile.close();
-queryFile.clear(); 
 queryFile.close();  
-  
 }
 
 
@@ -99,8 +98,8 @@ main(int argc, char **argv)
 
   if (param_flag == "linear") 
   {
-    // HashTableLinear<string> linear_probing_table;
-    // TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
+     HashTableLinear<string> linear_probing_table;
+     TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
   } 
   else if (param_flag == "quadratic") 
   {

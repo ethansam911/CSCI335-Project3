@@ -32,7 +32,7 @@ int NextPrime(size_t n) {
   return n;
 }
 
-}  // namespace
+}  // end namespace
 
 
 // Quadratic probing implementation.
@@ -65,7 +65,8 @@ class HashTable {
     
     // Rehash; see Section 5.5
     if (++current_size_ > array_.size() / 2)
-      Rehash();    
+      Rehash();  
+  
     return true;
   }
     
@@ -93,26 +94,24 @@ class HashTable {
     array_[current_pos].info_ = DELETED;
     return true;
   }
-  
-  void resetNumOfCollisions() 
-  {
-    number_of_collisions_ = 0;
-  }	
-  int getNumOfCollisions() 
-  {
-    return number_of_collisions_;
+
+  void resetCollisions() {
+    num_collisions_ = 0;
   }
-  int getNumOfElements() 
-  {
+
+  int getNumCollisions() {
+    return num_collisions_;
+  }
+  int getNumElements() {
     return current_size_;
   }
-  int getSize() 
-  {
+  int getSize() {
     return array_.size();
   }
+// ================================================================
+// private
+// ================================================================
 
-
-//PRIVATE VARIABLES HERE
  private:        
   struct HashEntry {
     HashedObj element_;
@@ -125,39 +124,42 @@ class HashTable {
     :element_{std::move(e)}, info_{ i } {}
   };
     
-
+  // VARIABLES
   std::vector<HashEntry> array_;
   size_t current_size_;
-  
-  //In this assignment we are allowed to add mutable
-  // That means that the value of number_of_collisions_ can change even in const functions
-  // of the class.
-  mutable size_t number_of_collisions_;
+
+  mutable size_t num_collisions_;
 
 
   bool IsActive(size_t current_pos) const
   { return array_[current_pos].info_ == ACTIVE; }
 
+  /* 
+  FindPos(const HashedObj & x) const
+  */
   size_t FindPos(const HashedObj & x) const {
     size_t offset = 1;
     size_t current_pos = InternalHash(x);
-      
-    while (array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
-	{
-	  //Entering this while loop means that a collision has occured
-	  //Therefore we increment the number of the collisions (Mutable)
-	  // 41 offset = 1
-      // 42 offset = 3   41 + 1
-      // 43 offset = 5   41 + 4
-      // 44 offset = 7   41 + 9
+    
+    
+    while (array_[current_pos].info_ != EMPTY &&
+	   array_[current_pos].element_ != x) {
 
-      // 41 + n*n = (new offset)
-	  number_of_collisions_++;
-      current_pos += offset;  // Compute ith probe.
+      num_collisions_++;
+      
+      // 23 offset = 1
+      // 24 offset = 3   23 + 1
+      // 27 offset = 5   23 + 4
+      // 32 ...          23 + 9
+
+      // 23 + n*n
+    
+      current_pos += offset;
       offset += 2;
       if (current_pos >= array_.size())
-	current_pos -= array_.size();
+	       current_pos -= array_.size();
     }
+    //num_collisions_ += collisions;
     return current_pos;
   }
 
