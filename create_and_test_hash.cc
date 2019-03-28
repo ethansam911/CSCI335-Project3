@@ -13,14 +13,17 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "TestFunctionForHashTables..." << endl;
   cout << "Words filename: " << words_filename << endl;
   cout << "Query filename: " << query_filename << endl;
-  hash_table.MakeEmpty();  
+  
   //..Insert your own code
   
+   hash_table.MakeEmpty();  
+   hash_table.resetNumOfCollisions();
+
   //c_str() is a library function that splits a c-string into tokens
   //A pointer to the c-string representation of the string object's value.
   // std::string should work fine
   ifstream wordsFile;
-  wordsFile.open(words_filename);
+  wordsFile.open(words_filename.c_str());
   
   //Check if able to open
   if(wordsFile.fail())
@@ -31,40 +34,41 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   string line_input;
   //Checking error flags
   while(wordsFile.good())
-  {
+  { 
 	getline(wordsFile, line_input);
 	hash_table.Insert(line_input);
   }
   
   //Hashing Implementation Testing Part A
   cout << "Part A:\n";
-  cout << "Collisions: " << hash_table.getNumOfCollisions() << endl;
+  
   cout << "Number of items: " << hash_table.getNumOfElements() << endl;
   cout << "Size of hash table: " << hash_table.getSize() << endl;
-  cout << "Load factor: "<< (hash_table.getNumOfElements() / (float)hash_table.getSize()) << endl;
-  cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(float)hash_table.getNumOfElements()) << endl;
+  cout << "Load factor: "<< (hash_table.getNumOfElements() / (double)hash_table.getSize()) << endl;
+  cout << "Collisions: " << hash_table.getNumOfCollisions() << endl;
+  cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(double)hash_table.getNumOfElements()) << endl;
   
   ifstream queryFile;
-  queryFile.open(query_filename);
+  queryFile.open(query_filename.c_str());
   if (queryFile.fail())
   {
     cerr << "Cannot open query_filename\n";
   }
-  string queryLine;
+  
   //Hashing Implementation Testing Part B
   while(queryFile.good())
-	  getline(queryFile, queryLine);
-      if(hash_table.Contains(queryLine)) 
+	  getline(queryFile, line_input);
+      if(hash_table.Contains(line_input.c_str())) 
 	  {
 		 // The "number of collisions + 1" determines the number of probes used
 		 //You must find a new position in the hashtable, so you collide until you find a position
-        cout << queryLine << "Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << line_input << "Found " << hash_table.getNumOfCollisions()+1 << endl;
 		//Reset the collisions because we want to find the number of probes only
         hash_table.resetNumOfCollisions();
       } 
 	  else 
 	  {
-        cout << queryLine << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << line_input << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
         hash_table.resetNumOfCollisions();
       }
   

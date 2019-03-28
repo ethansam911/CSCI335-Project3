@@ -132,7 +132,7 @@ class HashTable {
   //In this assignment we are allowed to add mutable
   // That means that the value of number_of_collisions_ can change even in const functions
   // of the class.
-  mutable int number_of_collisions_;
+  mutable size_t number_of_collisions_;
 
 
   bool IsActive(size_t current_pos) const
