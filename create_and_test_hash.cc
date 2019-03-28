@@ -8,7 +8,8 @@ using namespace std;
 
 
 template <typename HashTableType>
-void TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename, const string &query_filename) {
+void TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename, const string &query_filename) 
+{
   cout << "TestFunctionForHashTables..." << endl;
   cout << "Words filename: " << words_filename << endl;
   cout << "Query filename: " << query_filename << endl;
@@ -31,15 +32,16 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   //Checking error flags
   while(wordsFile.good())
   {
-	getline(wordsFile, line);
-	hash_table.Insert(line);
+	getline(wordsFile, line_input);
+	hash_table.Insert(line_input);
   }
   
   //Hashing Implementation Testing Part A
+  cout << "Part A:\n";
   cout << "Collisions: " << hash_table.getNumOfCollisions() << endl;
   cout << "Number of items: " << hash_table.getNumOfElements() << endl;
   cout << "Size of hash table: " << hash_table.getSize() << endl;
-  cout << "Load factor: "<< (hash_table.getNumElements() / (float)hash_table.getSize()) << endl;
+  cout << "Load factor: "<< (hash_table.getNumOfElements() / (float)hash_table.getSize()) << endl;
   cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(float)hash_table.getNumOfElements()) << endl;
   
   ifstream queryFile;
@@ -50,13 +52,13 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   }
   string queryLine;
   //Hashing Implementation Testing Part B
-  while(query_file.good()
-	  getline(query_file, queryLine);
+  while(queryFile.good())
+	  getline(queryFile, queryLine);
       if(hash_table.Contains(queryLine)) 
 	  {
 		 // The "number of collisions + 1" determines the number of probes used
 		 //You must find a new position in the hashtable, so you collide until you find a position
-        cout << queryLine << " Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << queryLine << "Found " << hash_table.getNumOfCollisions()+1 << endl;
 		//Reset the collisions because we want to find the number of probes only
         hash_table.resetNumOfCollisions();
       } 
@@ -65,14 +67,15 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
         cout << queryLine << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
         hash_table.resetNumOfCollisions();
       }
-  }
+  
   
 wordsFile.clear();
 wordsFile.close();
-queryFile.clear();
+queryFile.clear(); 
 queryFile.close();  
   
 }
+
 
 // Sample main for program create_and_test_hash
 int

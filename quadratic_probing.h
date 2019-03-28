@@ -96,11 +96,11 @@ class HashTable {
   
   void resetNumOfCollisions() 
   {
-    num_collisions_ = 0;
+    number_of_collisions_ = 0;
   }	
   int getNumOfCollisions() 
   {
-    return num_collisions_;
+    return number_of_collisions_;
   }
   int getNumOfElements() 
   {
