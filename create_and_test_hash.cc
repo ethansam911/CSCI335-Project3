@@ -14,17 +14,70 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "Query filename: " << query_filename << endl;
   hash_table.MakeEmpty();  
   //..Insert your own code
-
-  cout << "Collisions: " << endl;
-  cout << "Number of items: " << endl;
-  cout << "Size of hash table: " << endl;
-  cout << "Load factor: " << endl;
-  cout << "Avg. number of collisions: " << endl;
+  
+  //c_str() is a library function that splits a c-string into tokens
+  //A pointer to the c-string representation of the string object's value.
+  // std::string should work fine
+  ifstream wordsFile;
+  wordsFile.open(words_filename);
+  
+  //Check if able to open
+  if(wordsFile.fail())
+  {
+	  cerr << "Cannot open words_filename\n";
+  }
+  
+  string line_input;
+  //Checking error flags
+  while(wordsFile.good())
+  {
+	getline(wordsFile, line);
+	hash_table.Insert(line);
+  }
+  
+  //Hashing Implementation Testing Part A
+  cout << "Collisions: " << hash_table.getNumOfCollisions() << endl;
+  cout << "Number of items: " << hash_table.getNumOfElements() << endl;
+  cout << "Size of hash table: " << hash_table.getSize() << endl;
+  cout << "Load factor: "<< (hash_table.getNumElements() / (float)hash_table.getSize()) << endl;
+  cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(float)hash_table.getNumOfElements()) << endl;
+  
+  ifstream queryFile;
+  queryFile.open(query_filename);
+  if (queryFile.fail())
+  {
+    cerr << "Cannot open query_filename\n";
+  }
+  string queryLine;
+  //Hashing Implementation Testing Part B
+  while(query_file.good()
+	  getline(query_file, queryLine);
+      if(hash_table.Contains(queryLine)) 
+	  {
+		 // The "number of collisions + 1" determines the number of probes used
+		 //You must find a new position in the hashtable, so you collide until you find a position
+        cout << queryLine << " Found " << hash_table.getNumOfCollisions()+1 << endl;
+		//Reset the collisions because we want to find the number of probes only
+        hash_table.resetNumOfCollisions();
+      } 
+	  else 
+	  {
+        cout << queryLine << " Not Found " << hash_table.getNumOfCollisions()+1 << endl;
+        hash_table.resetNumOfCollisions();
+      }
+  }
+  
+wordsFile.clear();
+wordsFile.close();
+queryFile.clear();
+queryFile.close();  
+  
 }
 
 // Sample main for program create_and_test_hash
 int
-main(int argc, char **argv) {
+main(int argc, char **argv) 
+{
   if (argc != 4) 
   {
     cout << "Usage: " << argv[0] << " <wordsfilename> <queryfilename> <flag>" << endl;
@@ -35,17 +88,31 @@ main(int argc, char **argv) {
   const string query_filename(argv[2]);
   const string param_flag(argv[3]);
 
-  if (param_flag == "linear") {
+  if (param_flag == "linear") 
+  {
     // HashTableLinear<string> linear_probing_table;
     // TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
-  } else if (param_flag == "quadratic") {
+  } 
+  else if (param_flag == "quadratic") 
+  {
     HashTable<string> quadratic_probing_table;
     TestFunctionForHashTable(quadratic_probing_table, words_filename, query_filename);    
-  } else if (param_flag == "double") {
+  } 
+  else if (param_flag == "double") 
+  {
     // HashTableDouble<string> double_probing_table;
     // TestFunctionForHashTable(double_probing_table, words_filename, query_filename);    
-  } else {
+  } 
+  else 
+  {
     cout << "Uknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
   }
   return 0;
 }
+
+
+
+
+
+
+

@@ -93,7 +93,26 @@ class HashTable {
     array_[current_pos].info_ = DELETED;
     return true;
   }
+  
+  void resetNumOfCollisions() 
+  {
+    num_collisions_ = 0;
+  }	
+  int getNumOfCollisions() 
+  {
+    return num_collisions_;
+  }
+  int getNumOfElements() 
+  {
+    return current_size_;
+  }
+  int getSize() 
+  {
+    return array_.size();
+  }
 
+
+//PRIVATE VARIABLES HERE
  private:        
   struct HashEntry {
     HashedObj element_;
@@ -109,6 +128,12 @@ class HashTable {
 
   std::vector<HashEntry> array_;
   size_t current_size_;
+  
+  //In this assignment we are allowed to add mutable
+  // That means that the value of number_of_collisions_ can change even in const functions
+  // of the class.
+  mutable int number_of_collisions_;
+
 
   bool IsActive(size_t current_pos) const
   { return array_[current_pos].info_ == ACTIVE; }
