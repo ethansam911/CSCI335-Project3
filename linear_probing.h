@@ -10,7 +10,7 @@
 	the data of the HashTable and the HashTable itself
 	
 	
- Few comments describing the class AvlTree
+ Few comments describing the class HashTableLinear
 **/
 #ifndef LINEAR_PROBING_H
 #define LINEAR_PROBING_H

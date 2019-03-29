@@ -1,5 +1,15 @@
-// Ethan Sam
-
+/**
+    Name: Ethan Sam 
+	Date: 3/28/2019
+	Professor: Ioannis Stamos
+	Class: CSCI 335
+	
+	File: create_and_test_hash.cc
+	
+	This program 
+	
+	
+ Few comments describing the class HashTableLinear
 #include "quadratic_probing.h"
 #include "linear_probing.h"
 #include <iostream>
