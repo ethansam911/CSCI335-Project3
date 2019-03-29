@@ -78,14 +78,15 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   
   
 //Close both files
+wordsFile.clear();
 wordsFile.close();
+queryFile.clear();
 queryFile.close();  
 }
 
 
 // Sample main for program create_and_test_hash
-int
-main(int argc, char **argv) 
+int main(int argc, char **argv) 
 {
   if (argc != 4) 
   {

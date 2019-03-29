@@ -19,9 +19,6 @@
 #include <functional>
 
 
-namespace {
-
-
 //We comment this section as it is not required for lienar hashing
 /*
 // Internal method to test if a positive number is prime.
@@ -53,11 +50,11 @@ int NextPrime(size_t n) {
 
 // Quadratic probing implementation.
 template <typename HashedObj>
-class LinearHashTable {
+class HashTableLinear {
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  explicit HashTable(size_t size = 101) : array_(NextPrime(size))
+   explicit HashTableLinear(size_t size = 101) : array_(NextPrime(size))
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
@@ -111,17 +108,21 @@ class LinearHashTable {
     return true;
   }
 
-  void resetCollisions() {
+  void resetNumOfCollisions() 
+  {
     num_collisions_ = 0;
   }
 
-  int getNumCollisions() {
+  int getNumOfCollisions() 
+  {
     return num_collisions_;
   }
-  int getNumElements() {
+  int getNumOfElements() 
+  {
     return current_size_;
   }
-  int getSize() {
+  int getSize() 
+  {
     return array_.size();
   }
 //PRIVATE VARIABLES HERE==================================
@@ -151,9 +152,8 @@ class LinearHashTable {
   FindPos(const HashedObj & x) const
   */
   size_t FindPos(const HashedObj & x) const {
-    size_t offset = 1;
-    size_t current_pos = InternalHash(x);
-    
+  size_t offset = 1;
+  size_t current_pos = InternalHash(x);
     
     while (array_[current_pos].info_ != EMPTY &&
 	   array_[current_pos].element_ != x) {
@@ -161,11 +161,11 @@ class LinearHashTable {
       num_collisions_++;
       
       // linear
-      // 61 offset = 1
+      // 61 offset = 7
       // 62 offset = 1   61 + 1
       // 63 offset = 1   61 + 2
 	  // 64 offset = 1   61 + 3
-    
+	  //Calculate the ith probe 
       current_pos += offset;
 	  //Remove the +=2 offset becasue we only want to be incrmenting by one
      //offset += 2;
