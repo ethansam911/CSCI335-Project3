@@ -10,6 +10,7 @@
 	
 	
  Few comments describing the class HashTableLinear
+ **/
 #include "quadratic_probing.h"
 #include "linear_probing.h"
 #include <iostream>
@@ -65,7 +66,7 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   {
     cerr << "Cannot open query_filename\n";
   }
-  
+  cout << "Part B:\n";
   //Hashing Implementation Testing Part B
   while(queryFile.good())
   {
