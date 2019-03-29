@@ -1,6 +1,7 @@
 // Ethan Sam
 
 #include "quadratic_probing.h"
+#include "linear_probing.h"
 #include <iostream>
 #include <fstream>
 #include <string>

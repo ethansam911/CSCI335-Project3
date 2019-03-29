@@ -1,3 +1,17 @@
+/**
+    Name: Ethan Sam 
+	Date: 3/28/2019
+	Professor: Ioannis Stamos
+	Class: CSCI 335
+	
+	Header file: quadratic_probing.h
+	
+	This Hashing Class uses the quadratic probing technique to search 
+	for available positions on a hash table
+	
+	
+ Few comments describing the class AvlTree
+**/
 #ifndef QUADRATIC_PROBING_H
 #define QUADRATIC_PROBING_H
 

@@ -1,6 +1,19 @@
-#ifndef QUADRATIC_PROBING_H
-#define QUADRATIC_PROBING_H
-
+/**
+    Name: Ethan Sam 
+	Date: 3/28/2019
+	Professor: Ioannis Stamos
+	Class: CSCI 335
+	
+	Header file: linear_probing.h
+	
+	This Hashing Class provides functions to access and modify
+	the data of the HashTable and the HashTable itself
+	
+	
+ Few comments describing the class AvlTree
+**/
+#ifndef LINEAR_PROBING_H
+#define LINEAR_PROBING_H
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -8,6 +21,9 @@
 
 namespace {
 
+
+//We comment this section as it is not required for lienar hashing
+/*
 // Internal method to test if a positive number is prime.
 bool IsPrime(size_t n) {
   if( n == 2 || n == 3 )
@@ -33,11 +49,11 @@ int NextPrime(size_t n) {
 }
 
 }  // end namespace
-
+*/
 
 // Quadratic probing implementation.
 template <typename HashedObj>
-class HashTable {
+class LinearHashTable {
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
@@ -108,10 +124,7 @@ class HashTable {
   int getSize() {
     return array_.size();
   }
-// ================================================================
-// private
-// ================================================================
-
+//PRIVATE VARIABLES HERE==================================
  private:        
   struct HashEntry {
     HashedObj element_;
@@ -147,15 +160,15 @@ class HashTable {
 
       num_collisions_++;
       
-      // 23 offset = 1
-      // 24 offset = 3   23 + 1
-      // 27 offset = 5   23 + 4
-      // 32 ...          23 + 9
-
-      // 23 + n*n
+      // linear
+      // 61 offset = 1
+      // 62 offset = 1   61 + 1
+      // 63 offset = 1   61 + 2
+	  // 64 offset = 1   61 + 3
     
       current_pos += offset;
-      offset += 2;
+	  //Remove the +=2 offset becasue we only want to be incrmenting by one
+     //offset += 2;
       if (current_pos >= array_.size())
 	       current_pos -= array_.size();
     }
@@ -184,4 +197,4 @@ class HashTable {
   }
 };
 
-#endif  // QUADRATIC_PROBING_H
+#endif  // LINEAR_PROBING_H
