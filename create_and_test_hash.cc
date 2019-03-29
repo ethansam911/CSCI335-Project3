@@ -13,6 +13,7 @@
  **/
 #include "quadratic_probing.h"
 #include "linear_probing.h"
+#include "double_probing.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -111,18 +112,18 @@ int main(int argc, char **argv)
 
   if (param_flag == "linear") 
   {
-     HashTableLinear<string> linear_probing_table;
-     TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
+   HashTableLinear<string> linear_probing_table;
+   TestFunctionForHashTable(linear_probing_table, words_filename, query_filename);    
   } 
   else if (param_flag == "quadratic") 
   {
-    HashTable<string> quadratic_probing_table;
-    TestFunctionForHashTable(quadratic_probing_table, words_filename, query_filename);    
+   HashTableQuadratic<string> quadratic_probing_table;
+   TestFunctionForHashTable(quadratic_probing_table, words_filename, query_filename);    
   } 
   else if (param_flag == "double") 
   {
-    // HashTableDouble<string> double_probing_table;
-    // TestFunctionForHashTable(double_probing_table, words_filename, query_filename);    
+   HashTableDouble<string> double_probing_table;
+   TestFunctionForHashTable(double_probing_table, words_filename, query_filename);    
   } 
   else 
   {

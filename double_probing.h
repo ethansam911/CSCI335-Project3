@@ -4,58 +4,31 @@
 	Professor: Ioannis Stamos
 	Class: CSCI 335
 	
-	Header file: quadratic_probing.h
+	Header file: double_probing.h
 	
-	This Hashing Class uses the quadratic probing technique to search 
+	This Hashing Class uses the double probing technique to search 
 	for available positions on a hash table
 	
 	
- Few comments describing the class HashTableQuadratic
+ Few comments describing the class HashTableDouble
 **/
-#ifndef QUADRATIC_PROBING_H
-#define QUADRATIC_PROBING_H
+#ifndef DOUBLE_PROBING_H
+#define DOUBLE_PROBING_H
 
 #include <vector>
 #include <algorithm>
 #include <functional>
 
 
-namespace {
-
-// Internal method to test if a positive number is prime.
-bool IsPrime(size_t n) {
-  if( n == 2 || n == 3 )
-    return true;
-  
-  if( n == 1 || n % 2 == 0 )
-    return false;
-  
-  for( int i = 3; i * i <= n; i += 2 )
-    if( n % i == 0 )
-      return false;
-  
-  return true;
-}
-
-
-// Internal method to return a prime number at least as large as n.
-int NextPrime(size_t n) {
-  if (n % 2 == 0)
-    ++n;  
-  while (!IsPrime(n)) n += 2;  
-  return n;
-}
-
-}  // namespace
-
 
 // Quadratic probing implementation.
 template <typename HashedObj>
-class HashTableQuadratic {
+class HashTableDouble 
+{
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  explicit HashTableQuadratic(size_t size = 101) : array_(NextPrime(size))
+  explicit HashTableDouble(size_t size = 101) : array_(NextPrime(size))
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
@@ -194,6 +167,18 @@ class HashTableQuadratic {
     static std::hash<HashedObj> hf;
     return hf(x) % array_.size( );
   }
+  //This is a reproduction of the Internal Hash 
+  size_t InternalSecondHash(const HashedObj & x) const {
+    //  static local variable is initialized only once 
+    // no matter how many times the function in which it resides 
+	//is called and its value is retained and accessible through 
+	// many calls to the function 
+    static std::hash<HashedObj> hf;
+	//The number 191 was chosen with rehashing in mind,
+	//the initial size of the hash table was 101; 202 would be even
+    //Therefore, the closest prime below 202 is 199
+    return (199 - ( hf(x) )  % 199) % array_.size();
+  }
 };
 
-#endif  // QUADRATIC_PROBING_H
+#endif  // DOUBLE_PROBING_H
