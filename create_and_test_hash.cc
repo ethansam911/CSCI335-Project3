@@ -6,7 +6,7 @@
 	
 	File: create_and_test_hash.cc
 	
-	This program 
+	This program contains test functions for Linear, Quadratic, and Double Hashing
 	
 	
  Few comments describing the class HashTableLinear
@@ -57,9 +57,9 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   
   cout << "Number of items: " << hash_table.getNumOfElements() << endl;
   cout << "Size of hash table: " << hash_table.getSize() << endl;
-  cout << "Load factor: "<< (hash_table.getNumOfElements() / (double)hash_table.getSize()) << endl;
+  cout << "Load factor: "<< (hash_table.getNumOfElements() / (float)hash_table.getSize()) << endl;
   cout << "Collisions: " << hash_table.getNumOfCollisions() << endl;
-  cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(double)hash_table.getNumOfElements()) << endl;
+  cout << "Avg. number of collisions: " << (hash_table.getNumOfCollisions()/(float)hash_table.getNumOfElements()) << endl;
   
   ifstream queryFile;
   queryFile.open(query_filename.c_str());

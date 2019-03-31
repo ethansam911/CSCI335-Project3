@@ -10,6 +10,8 @@
 	
 	Removed chaarcters (in every position)
 	Added characters( from a-z) in every position
+	Swapped characters (from index = 0 to the total 
+	of the string)
 	
 	
  Few comments describing the Spell Check Program

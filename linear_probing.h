@@ -47,9 +47,6 @@ int NextPrimeLinear(size_t n) {
 }
 }
 
-
-
-
 // Quadratic probing implementation.
 template <typename HashedObj>
 class HashTableLinear {
