@@ -163,9 +163,10 @@ class HashTableDouble
 	Insert(std::move(entry.element_));
   }
   
-  size_t InternalHash(const HashedObj & x) const {
-    static std::hash<HashedObj> hf;
-    return hf(x) % array_.size( );
+  size_t InternalHash(const HashedObj & x) const 
+  {
+    static std::hash<HashedObj > hf;
+    return hf(x) % array_.size();
   }
   //This is a reproduction of the Internal Hash 
   size_t InternalSecondHash(const HashedObj & x) const {

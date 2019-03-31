@@ -44,18 +44,22 @@ int NextPrime(size_t n) {
   while (!IsPrime(n)) n += 2;  
   return n;
 }
-
-}  // end namespace
 */
+
+
 
 // Quadratic probing implementation.
 template <typename HashedObj>
 class HashTableLinear {
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
-
-   explicit HashTableLinear(size_t size = 101) : array_(NextPrime(size))
-    { MakeEmpty(); }
+  
+	// The compiler will require that "NextPrime" is defined in the context of use in the template, not only before the point of instantiation
+	//   array_(NextPrime(size)) ->        HashTableLinear<HashedObj>::NextPrime(size)
+   explicit HashTableLinear(size_t size = 101) : array_(HashTableLinear<HashedObj>::NextPrime(size))
+    { 
+	MakeEmpty(); 
+	}
   
   bool Contains(const HashedObj & x) const {
     return IsActive(FindPos(x));

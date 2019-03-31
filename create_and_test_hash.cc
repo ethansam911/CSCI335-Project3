@@ -27,7 +27,7 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   cout << "Words filename: " << words_filename << endl;
   cout << "Query filename: " << query_filename << endl;
   
-  //..Insert your own code
+  //..Insert your own code 
   
    hash_table.MakeEmpty();  
    hash_table.resetNumOfCollisions();
