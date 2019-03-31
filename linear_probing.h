@@ -19,17 +19,17 @@
 #include <functional>
 
 
-//We comment this section as it is not required for lienar hashing
-/*
+
+namespace {
 // Internal method to test if a positive number is prime.
-bool IsPrime(size_t n) {
+bool IsPrimeLinear(size_t n) {
   if( n == 2 || n == 3 )
     return true;
   
   if( n == 1 || n % 2 == 0 )
     return false;
   
-  for( int i = 3; i * i <= n; i += 2 )
+  for( size_t i = 3; i * i <= n; i += 2 )
     if( n % i == 0 )
       return false;
   
@@ -38,13 +38,15 @@ bool IsPrime(size_t n) {
 
 
 // Internal method to return a prime number at least as large as n.
-int NextPrime(size_t n) {
+int NextPrimeLinear(size_t n) {
   if (n % 2 == 0)
     ++n;  
-  while (!IsPrime(n)) n += 2;  
+  while (!IsPrimeLinear(n))
+  {	  n += 2;}  
   return n;
 }
-*/
+}
+
 
 
 
@@ -56,14 +58,11 @@ class HashTableLinear {
   
 	// The compiler will require that "NextPrime" is defined in the context of use in the template, not only before the point of instantiation
 	//   array_(NextPrime(size)) ->        HashTableLinear<HashedObj>::NextPrime(size)
-   explicit HashTableLinear(size_t size = 101) : array_(HashTableLinear<HashedObj>::NextPrime(size))
-    { 
-	MakeEmpty(); 
-	}
+   explicit HashTableLinear(size_t size = 101): array_(NextPrimeLinear(size))
+    { MakeEmpty();}
   
-  bool Contains(const HashedObj & x) const {
-    return IsActive(FindPos(x));
-  }
+  bool Contains(const HashedObj & x) const 
+  {return IsActive(FindPos(x));}
   
   void MakeEmpty() {
     current_size_ = 0;
@@ -182,9 +181,8 @@ class HashTableLinear {
 
   void Rehash() {
     std::vector<HashEntry> old_array = array_;
-
     // Create new double-sized, empty table.
-    array_.resize(NextPrime(2 * old_array.size()));
+    array_.resize(NextPrimeLinear(2 * old_array.size()));
     for (auto & entry : array_)
       entry.info_ = EMPTY;
     

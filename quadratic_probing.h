@@ -23,7 +23,7 @@
 namespace {
 
 // Internal method to test if a positive number is prime.
-bool IsPrime(size_t n) 
+bool IsPrimeQuadratic(size_t n) 
 {
   if(n==2||n==3)
     return true;
@@ -31,7 +31,7 @@ bool IsPrime(size_t n)
   if(n==1||n%2==0)
     return false;
   
-  for(int i = 3; i*i <= n; i+=2)
+  for(size_t i = 3; i*i <= n; i+=2)
     if( n % i == 0 )
       return false;
   
@@ -40,11 +40,11 @@ bool IsPrime(size_t n)
 
 
 // Internal method to return a prime number at least as large as n.
-int NextPrime(size_t n) 
+int NextPrimeQuadratic(size_t n) 
 {
   if (n % 2 == 0)
     ++n;  
-  while (!IsPrime(n)) n += 2;  
+  while (!IsPrimeQuadratic(n)) n += 2;  
   return n;
 }
 
@@ -57,7 +57,7 @@ class HashTableQuadratic {
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  explicit HashTableQuadratic(size_t size = 101) : array_(NextPrime(size))
+  explicit HashTableQuadratic(size_t size = 101) : array_(NextPrimeQuadratic(size))
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
@@ -181,7 +181,7 @@ class HashTableQuadratic {
     std::vector<HashEntry> old_array = array_;
 
     // Create new double-sized, empty table.
-    array_.resize(NextPrime(2 * old_array.size()));
+    array_.resize(NextPrimeQuadratic(2 * old_array.size()));
     for (auto & entry : array_)
       entry.info_ = EMPTY;
     

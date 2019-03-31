@@ -6,15 +6,18 @@
 	
 	Header file: spell_check.cc
 	
-	This spell_check program detects 
+	This spell_check program checks for three cases:
+	
+	Removed chaarcters (in every position)
+	Added characters( from a-z) in every position
 	
 	
  Few comments describing the Spell Check Program
-**/
+**/ 
 
 
-#include "linear_probing.h"
-#include "quadratic_probing.h"
+#include "linear_probing.h"  
+#include "quadratic_probing.h"  
 #include "double_probing.h"
 #include <iostream>
 #include <fstream>
@@ -104,9 +107,11 @@ void FindAndPrintMisspelled(HashTableType &hash_table, const string &document_fi
 		Case-C("lwa") 
 			-law
  
+ These cases are all "Naive" brute force methods
  **/ 
 
 //Case A
+// Add a character in every possible position of the word and check for a match
  string changedWord = wordOfLine;
    if ( !skipApostropheWord && !hash_table.Contains(changedWord)) 
    {
@@ -115,28 +120,59 @@ void FindAndPrintMisspelled(HashTableType &hash_table, const string &document_fi
 	   {
 			//An interesting way of iterating found online
 			//Since a char represents an ascii value, we can
-			//just iterate from a through z 
+			//just iterate from a through z by iterating
             for (char ch = 'a';ch <= 'z'; ch++) 
 			{
 				//This function is from the string standard library
 				//void insert (iterator i, size_t n, char c);
 				//inserts n consecutive copies of character c.
-				//Ex:  word -> 
+				//Ex:  word -> waord -> wbord -> wcord
                 changedWord.insert(i, 1, ch);
                 
                 if(hash_table.Contains(changedWord)) 
 				{
                  cout << wordOfLine << " -> " << changedWord << endl;
                 }
-				//Reset the changed word back into what it previously was
+				//Reset the changed word so we can continue in the "for loop"
                 changedWord = wordOfLine;     
             }
 		}
-		
-   }
-   skipApostropheWord = false;
+//Case B
+// Remove a character in every possible position of the word and check for a match
+       for(size_t i = 0; i < wordOfLine.length(); ++i) 
+	   {
+            //We begin from index 0 and iterate (Deleting a string of size len)
+			// string& erase (size_t pos = 0, size_t len = npos);
+            changedWord.erase(i,1);
+            if(hash_table.Contains(changedWord)) 
+			{
+              cout << wordOfLine << " -> " << changedWord << endl;
+            }
+			//Reset the changedWord so we can continue in the "for loop"
+            changedWord = wordOfLine; 
+		}
+//Case C
+//Swap a chaarcter from a giiven character in index "i" with "i+1"
+       for(size_t i = 0; i < wordOfLine.length() - 1; ++i) 
+	   {
+            //We begin from index 0 and swap between index "i" and "i+1"
+			//Example:
+			//std::string s = "03/02";
+			//std::swap(s[1], s[4]);
+			//This returns s = "02/03"
+            swap(changedWord[i], changedWord[i+1]);
+            if(hash_table.Contains(changedWord)) 
+			{
+               cout << wordOfLine << " -> " << changedWord << endl;
+            }
+			//Reset the changed word so we can continue in the "for loop"
+            changedWord = wordOfLine; 
+	   }//END For Loop
+   }//END if statement
+	
+   skipApostropheWord = false; 
    
-  }// END While loop
+  }//END While loop  (AKA END the checking of each word)
  
  
  document_stream.close();
@@ -166,10 +202,6 @@ int main(int argc, char **argv)
   
   HashTableDouble<string> doubleProbeTable;
   FindAndPrintMisspelled(doubleProbeTable, document_filename, dictionary_filename);    
-
-  
-  
-  
 
   return 0;
 }

@@ -12,11 +12,11 @@
  Few comments describing the class HashTableLinear
  **/
 #include "quadratic_probing.h"
-#include "linear_probing.h"
+#include "linear_probing.h" 
 #include "double_probing.h"
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <fstream>  
+#include <string> 
 using namespace std;
 
 
@@ -90,10 +90,8 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   
   
 //Close both files
-wordsFile.clear();
 wordsFile.close();
-queryFile.clear();
-queryFile.close();  
+queryFile.close();       
 }
 
 

@@ -21,6 +21,33 @@
 
 
 
+namespace {
+// Internal method to test if a positive number is prime.
+bool IsPrimeDouble(size_t n) {
+  if( n == 2 || n == 3 )
+    return true;
+  
+  if( n == 1 || n % 2 == 0 )
+    return false;
+  
+  for( size_t i = 3; i * i <= n; i += 2 )
+    if( n % i == 0 )
+      return false;
+  
+  return true;
+}
+
+
+// Internal method to return a prime number at least as large as n.
+int NextPrimeDouble(size_t n) {
+  if (n % 2 == 0)
+    ++n;  
+  while (!IsPrimeDouble(n))
+  {	  n += 2;}  
+  return n;
+}
+}
+
 // Quadratic probing implementation.
 template <typename HashedObj>
 class HashTableDouble 
@@ -28,7 +55,7 @@ class HashTableDouble
  public:
   enum EntryType {ACTIVE, EMPTY, DELETED};
 
-  explicit HashTableDouble(size_t size = 101) : array_(NextPrime(size))
+  explicit HashTableDouble(size_t size = 101) : array_(NextPrimeDouble(size))
     { MakeEmpty(); }
   
   bool Contains(const HashedObj & x) const {
@@ -152,7 +179,7 @@ class HashTableDouble
     std::vector<HashEntry> old_array = array_;
 
     // Create new double-sized, empty table.
-    array_.resize(NextPrime(2 * old_array.size()));
+    array_.resize(NextPrimeDouble(2 * old_array.size()));
     for (auto & entry : array_)
       entry.info_ = EMPTY;
     
@@ -177,7 +204,7 @@ class HashTableDouble
     static std::hash<HashedObj> hf;
 	//The number 191 was chosen with rehashing in mind,
 	//the initial size of the hash table was 101; 202 would be even
-    //Therefore, the closest prime below 202 is 199
+    //Therefore, the closest prime below 202 is 199 to gurantee a unique position
     return (199 - ( hf(x) )  % 199) % array_.size();
   }
 };
