@@ -38,7 +38,7 @@ void FindAndPrintMisspelled(HashTableType &hash_table, const string &document_fi
   //And "static std::hash<HashedObj> hf;" retains the value no matter the amoutn fo calls,
   //We must make the hash_table empty and reset the amount of collisions
   hash_table.MakeEmpty();
-  hash_table.resetCollisions();
+  hash_table.resetNumOfCollisions();
   
   //Standard method of opening and reading a file
   ifstream document_stream;
@@ -151,6 +151,7 @@ int main(int argc, char **argv)
 {
   if (argc != 3) 
   {
+	//No flag is used here, so I chose doubleHashing because there are less collisions
     cout << "Usage: " << argv[0] << " <document-file> <dictionary-file>" << endl;
     return 0;
   }
@@ -162,6 +163,13 @@ int main(int argc, char **argv)
   cout << "Input dictionary filename is " << dictionary_filename << endl;
 
   // Call functions implementing the assignment requirements.
+  
+  HashTableDouble<string> doubleProbeTable;
+  FindAndPrintMisspelled(doubleProbeTable, document_filename, dictionary_filename);    
+
+  
+  
+  
 
   return 0;
 }
