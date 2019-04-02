@@ -155,8 +155,8 @@ class HashTableQuadratic {
   { return array_[current_pos].info_ == ACTIVE; }
 
   size_t FindPos(const HashedObj & x) const {
-    size_t offset = 1;
-    size_t current_pos = InternalHash(x);
+  size_t offset = 1;
+  size_t current_pos = InternalHash(x);
       
     while (array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
 	{
@@ -169,7 +169,8 @@ class HashTableQuadratic {
 
       // 41 + n*n = (new offset)
 	  number_of_collisions_++;
-      current_pos += offset;  // Compute ith probe.
+      current_pos += offset;
+	  // Compute ith probe.	  
       offset += 2;
       if (current_pos >= array_.size())
 	current_pos -= array_.size();

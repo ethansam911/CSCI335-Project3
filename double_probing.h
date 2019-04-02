@@ -20,7 +20,8 @@
 #include <functional>
 
 
-
+// We use namespace so that there isn't a naming conflict,
+// But I still got naming conflicts anyway?
 namespace {
 // Internal method to test if a positive number is prime.
 bool IsPrimeDouble(size_t n) {
@@ -153,22 +154,18 @@ class HashTableDouble
   { return array_[current_pos].info_ == ACTIVE; }
 
   size_t FindPos(const HashedObj & x) const {
-    size_t offset = 1;
-    size_t current_pos = InternalHash(x);
-      
+    //size_t offset = 1;
+	//Offset is no longer 1, the new offset is the internalHashSecond (function)
+    size_t offset = InternalSecondHash(x);
+	size_t current_pos = InternalHash(x);  
     while (array_[current_pos].info_ != EMPTY && array_[current_pos].element_ != x) 
 	{
 	  //Entering this while loop means that a collision has occured
 	  //Therefore we increment the number of the collisions (Mutable)
-	  // 41 offset = 1
-      // 42 offset = 3   41 + 1
-      // 43 offset = 5   41 + 4
-      // 44 offset = 7   41 + 9
-
-      // 41 + n*n = (new offset)
 	  number_of_collisions_++;
-      current_pos += offset;  // Compute ith probe.
-      offset += 2;
+      current_pos += offset; 
+	  //Previous Implementation for quadratic, but we care about double hashing
+      //offset += 2;
       if (current_pos >= array_.size())
 	current_pos -= array_.size();
     }
@@ -196,7 +193,8 @@ class HashTableDouble
     return hf(x) % array_.size();
   }
   //This is a reproduction of the Internal Hash 
-  size_t InternalSecondHash(const HashedObj & x) const {
+  size_t InternalSecondHash(const HashedObj & x) const 
+  {
     //  static local variable is initialized only once 
     // no matter how many times the function in which it resides 
 	//is called and its value is retained and accessible through 
