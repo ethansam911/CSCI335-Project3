@@ -22,6 +22,7 @@
 
 // We use namespace so that there isn't a naming conflict,
 // But I still got naming conflicts anyway?
+//Resolve each namespace to a different name or create a file that resolves all the namespaces.
 namespace {
 // Internal method to test if a positive number is prime.
 bool IsPrimeDouble(size_t n) {

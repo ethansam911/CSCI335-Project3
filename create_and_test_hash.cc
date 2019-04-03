@@ -54,7 +54,6 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   
   //Hashing Implementation Testing Part A
   cout << "Part A:\n";
-  
   cout << "Number of items: " << hash_table.getNumOfElements() << endl;
   cout << "Size of hash table: " << hash_table.getSize() << endl;
   cout << "Load factor: "<< (hash_table.getNumOfElements() / (float)hash_table.getSize()) << endl;
@@ -72,25 +71,31 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
   while(queryFile.good())
   {
 	  getline(queryFile, line_input);
-      if(hash_table.Contains(line_input)) 
+	   //We must reset the amount of collisions after every probe
+	   	hash_table.resetNumOfCollisions();
+
+	   if(hash_table.Contains(line_input)) 
 	  {
+	   //We must reset the amount of collisions 
+	
 		  
 		 // The "number of collisions + 1" determines the number of probes used
 		 //You must find a new position in the hashtable, so you collide until you find a position
-        cout << line_input << " Found " << hash_table.getNumOfCollisions()+1 << endl;
+        cout << line_input << " Found " << hash_table.getNumOfCollisions()+1 << " probe(s) " << endl;
 		//Reset the collisions because we want to find the number of probes only
-        hash_table.resetNumOfCollisions();
       } 
 	  else 
 	  {
-        cout << line_input << " Not Found " << hash_table.getNumOfCollisions() + 1 << endl;
-        hash_table.resetNumOfCollisions();
+        cout << line_input << " Not Found " << hash_table.getNumOfCollisions() + 1<< " probe(s) " << endl;
       }
+
   }
   
   
 //Close both files
+wordsFile.clear();
 wordsFile.close();
+queryFile.clear();
 queryFile.close();       
 }
 

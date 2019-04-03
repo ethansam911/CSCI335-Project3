@@ -18,8 +18,7 @@
 **/ 
 
 
-#include "linear_probing.h"  
-#include "quadratic_probing.h"  
+ 
 #include "double_probing.h"
 #include <iostream>
 #include <fstream>

@@ -19,8 +19,8 @@
 #include <functional>
 
 
-
-namespace {
+//
+namespace  {
 // Internal method to test if a positive number is prime.
 bool IsPrimeLinear(size_t n) {
   if( n == 2 || n == 3 )

@@ -20,7 +20,7 @@
 #include <functional>
 
 
-namespace {
+namespace  {
 
 // Internal method to test if a positive number is prime.
 bool IsPrimeQuadratic(size_t n) 
