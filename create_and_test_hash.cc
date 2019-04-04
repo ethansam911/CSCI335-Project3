@@ -76,17 +76,18 @@ void TestFunctionForHashTable(HashTableType &hash_table, const string &words_fil
 
 	   if(hash_table.Contains(line_input)) 
 	  {
-	   //We must reset the amount of collisions 
-	
 		  
-		 // The "number of collisions + 1" determines the number of probes used
-		 //You must find a new position in the hashtable, so you collide until you find a position
-        cout << line_input << " Found " << hash_table.getNumOfCollisions()+1 << " probe(s) " << endl;
-		//Reset the collisions because we want to find the number of probes only
+	   //We must reset the amount of collisions  
+	   // The "number of collisions + 1" determines the number of probes used
+	   //You must find a new position in the hashtable, so you collide until you find a position
+       cout << line_input << " Found " << hash_table.getNumOfCollisions()+1 << " probe(s) " << endl;
+	   //Reset the collisions because we want to find the number of probes only
+	  
       } 
 	  else 
 	  {
         cout << line_input << " Not Found " << hash_table.getNumOfCollisions() + 1<< " probe(s) " << endl;
+	   	
       }
 
   }
